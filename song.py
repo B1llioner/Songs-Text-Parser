@@ -8,6 +8,7 @@ HEADERS = {"user-agent" : USER_AGENT }
 s_text = '''-----------------------------
 Исполнитель {}
 Текст песни {} :
+
 {}
 -----------------------------
 '''
@@ -33,9 +34,12 @@ with open('html.html', 'w', encoding='utf-8') as file:
 with open('html.html', 'r', encoding='utf-8') as file:
     soup = BeautifulSoup(file, 'lxml')
 
-match = soup.find('div', class_='hwc')
-match2 = match.div.div.div.text
-match3 = match2[17:]
+try:
+    match = soup.find('div', class_='hwc')
+    match2 = match.div.div.div.text
+    match3 = match2[17:]
+except:
+    match3 = "Текст песни {} не найден".format(b)
 
 with open('song_text.txt', 'w') as file:
     file.write(s_text.format(str(a),str(b),str(match3)))
